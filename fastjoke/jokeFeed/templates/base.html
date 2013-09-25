@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- jquery -->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	
+	<!-- bootstrap -->
+	{% load staticfiles %}
+	<link type="text/css" href="{{STATIC_URL}}bootstrap-3.0.0/dist/css/bootstrap.css" rel="stylesheet"/>
+	<link href="{{STATIC_URL}}bootstrap-3.0.0/dist/css/bootstrap-theme.css" rel="stylesheet"/>
+	<script src="{{STATIC_URL}}bootstrap-3.0.0/dist/js/bootstrap.js"> </script>
+	
+	<!-- css -->
+	<link type="text/css" href="{{STATIC_URL}}css/base.css" rel="stylesheet"/>
+	
+    <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+	<a href="/">Home</a>
+	{% if user.is_authenticated %}
+		<p>{{ user.first_name }} {{ user.last_name}}'s Profile</p>
+		<a href="/accounts/logout">logout</a>
+		
+	{% else %}
+		<a href="/accounts/login">Log in</a>
+		<a href="/accounts/add">Create Account</a>
+	{% endif %}
+	<p>Link to add joke</p>
+
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

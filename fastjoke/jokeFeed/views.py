@@ -11,7 +11,7 @@ def base(request):
 	return render(request, 'base.html', context)
 	
 #home/index page. 
-def index(request)
+def index(request):
 	#grab jokes from Joke database
 	
 	context = {}
@@ -24,7 +24,7 @@ def add_user(request):
 	return render(request, 'registration/add_user.html', context)
 	
 def add_user_add(request):
-	newUser = User.objects.create_user(request.POST['uname'],request.POST['email'], request.POST['pwd'])
+	newUser = User.objects.create_user(request.POST['uname'], request.POST['email'], request.POST['pwd'])
 	#newUser.last_name = request.POST['last_name']
 	#newUser.first_name = request.POST['first_name']
 
@@ -36,11 +36,11 @@ def add_user_add(request):
 	
 	
 #submitting jokes
-def add_joke (request)
+def add_joke(request):
 	context = {}
 	return render(request, 'jokeFeed/index.html', context)
 
-def add_joke_add
+def add_joke_add(request):
 	context = {}
 	return render(request, 'jokeFeed/index.html', context)
 
