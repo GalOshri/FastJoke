@@ -1,5 +1,6 @@
 # Django settings for fastjoke project.
 import os, sys
+#from django.contrib.sessions.backends.db import SessionStore
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -8,7 +9,6 @@ APP_DIR = os.path.dirname(globals()['__file__'])
 LOGIN_REDIRECT_URL = '/'
 DEBUG=True
 TEMPLATE_DEBUG = DEBUG
-
 
 
 ADMINS = (
@@ -92,6 +92,8 @@ STATICFILES_FINDERS = (
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '5%xtj^+^_@)nxm+u9ltrs6p-%e*s!cg1^fhpfho+9@s$&5ul(m'
+
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
