@@ -8,7 +8,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
 	url(r'', include('jokeFeed.urls', namespace='jokeFeed')),
-	url(r'^accounts/login/$', 'django.contrib.auth.views.login', {'redirect_field_name': 'jokeFeed/index.html'}),
+	url(r'^accounts/login/$', 'django.contrib.auth.views.login', {}),
 	url(r'^accounts/logout/$', 'django.contrib.auth.views.logout', {'next_page' : '/'}),
 	url(r'^accounts/add$', 'jokeFeed.views.add_user', name='add_user'),
 	url(r'^accounts/add/add$', 'jokeFeed.views.add_user_add', name='add_user_add'),
