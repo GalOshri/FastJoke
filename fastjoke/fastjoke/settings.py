@@ -7,6 +7,7 @@ TEMPLATE_DEBUG = DEBUG
 #Items added by us:
 APP_DIR = os.path.dirname(globals()['__file__'])
 LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/accounts/login'
 DEBUG=True
 TEMPLATE_DEBUG = DEBUG
 

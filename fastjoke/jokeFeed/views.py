@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from jokeFeed.models import UserProfile, Joke
 from django.core.urlresolvers import reverse
 from django.http import Http404
+from django.contrib.auth.decorators import login_required
 
 
 # template of templates
@@ -38,6 +39,7 @@ def add_user_add(request):
 	
 	
 # submitting jokes
+@login_required()
 def submit(request):
 	context = {}
 	return render(request, 'jokeFeed/submit.html', context)
