@@ -28,7 +28,7 @@ def add_user(request):
 	return render(request, 'registration/add_user.html', context)
 	
 def add_user_add(request):
-	newUser = User.objects.create_user(request.POST['uname'], request.POST['email'], request.POST['pwd'])
+	newUser = User.objects.create_user(request.POST['uname'], password=request.POST['pwd'])
 	# newUser.last_name = request.POST['last_name']
 	# newUser.first_name = request.POST['first_name']
 
