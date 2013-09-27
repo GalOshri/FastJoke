@@ -6,6 +6,11 @@
 <div class="container">
 <p>{{ current_joke.text }}</p> 
 
+<!--voting-->
+<a href="/{{ current_joke.id }}/up"><button class="btn btn-primary"> <span class="glyphicon glyphicon-thumbs-up"></span></button></a>
+<a href="/{{ current_joke.id }}/down"><button class="btn btn-primary"> <span class="glyphicon glyphicon-thumbs-down"></span></button></a>
+
+
 
 </div>
 {% endblock %}
