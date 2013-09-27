@@ -6,6 +6,7 @@ from jokeFeed.models import UserProfile, Joke
 from django.core.urlresolvers import reverse
 from django.http import Http404
 from django.contrib.auth.decorators import login_required
+import datetime
 
 
 # template of templates
@@ -43,10 +44,11 @@ def add_user_add(request):
 def submit(request):
 	context = {}
 	return render(request, 'jokeFeed/submit.html', context)
-
-def add_joke_add(request):
-	context = {}
-	return HttpResponseRedirect('/')
+	
+def submit_submit(request):
+	new_joke = Joke(owner=request.user, text=request.POST['joke'], views=0, up=0, down=0, date=datetime.date.today())
+	new_joke.save()
+	return HttpResponseRedirect(reverse('jokeFeed:detail', args=(new_joke.id,)))
 	
 # viewing jokes
 def detail(request, joke_id):
