@@ -17,6 +17,7 @@ def base(request):
 # home/index page. 
 def index(request):
 	# get top joke, but if have viewed, go to the next one. 
+	#set current_joke_num if session was not in place before. use try and except. 
 	try:
 		if request.session['current_joke_num']:
 			pass
@@ -80,14 +81,17 @@ def down(request, joke_id):
 	return HttpResponseRedirect(reverse('jokeFeed:detail', args=(next_joke.id,)))
 
 def getNextJoke(request):
-	#append viewed joke to list
+	#append viewed joke to list. 
 	request.session['viewed'].append(request.session['current_joke_num'])
 	
 	next_joke_num=find_unviewed_joke(request,request.session['current_joke_num'])
+	
+	#set new current_joke_num for session. 
 	request.session['current_joke_num']=next_joke_num
 	return get_object_or_404(Joke, pk=request.session['current_joke_num'])
 
 def find_unviewed_joke(request,joke_id):
+	#checks array of viewed jokes. If not there, returns number of unviewed joke
 	if joke_id + 1 not in request.session['viewed']:
 		joke_id += 1
 		return joke_id
