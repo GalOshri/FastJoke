@@ -4,7 +4,7 @@
 
 {% block content %} 
 <div class="container">
-	<div class='page-header'><h1><strong>New Users</strong><br> <small>create your own account</small></h1></div>
+	<div class='page-header'><h1><strong>{{user.username}}</strong><br> <small>submit a joke!</small></h1></div>
 	
 	<form class="form-horizontal" role="form" action="{% url 'jokeFeed:submit_submit' %}" method="post">
 		{% csrf_token %}
