@@ -16,8 +16,15 @@ def base(request):
 	
 # home/index page. 
 def index(request):
-	# get top joke
-	request.session['current_joke_num'] = 0
+	# get top joke, but if have viewed, go to the next one. 
+	try:
+		if request.session['current_joke_num']:
+			pass
+	except: request.session['current_joke_num'] = 0
+	
+	#create array of viewed jokes
+	request.session['viewed']=[]
+	
 	next_joke = getNextJoke(request)
 	return HttpResponseRedirect(reverse('jokeFeed:detail', args=(next_joke.id,)))
 
@@ -67,9 +74,22 @@ def down(request, joke_id):
 	current_joke = get_object_or_404(Joke, pk=joke_id)
 	current_joke.down += 1
 	current_joke.save()
+	
+	#algorithm for next joke
 	next_joke = getNextJoke(request)
 	return HttpResponseRedirect(reverse('jokeFeed:detail', args=(next_joke.id,)))
 
 def getNextJoke(request):
-	request.session['current_joke_num'] += 1
+	#append viewed joke to list
+	request.session['viewed'].append(request.session['current_joke_num'])
+	
+	next_joke_num=find_unviewed_joke(request,request.session['current_joke_num'])
+	request.session['current_joke_num']=next_joke_num
 	return get_object_or_404(Joke, pk=request.session['current_joke_num'])
+
+def find_unviewed_joke(request,joke_id):
+	if joke_id + 1 not in request.session['viewed']:
+		joke_id += 1
+		return joke_id
+	else:
+		find_unviewed_joke(joke_id+1)
