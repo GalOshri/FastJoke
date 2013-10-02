@@ -10,10 +10,16 @@
 			<br>
 			<h1>{{ current_joke.text }}</h1>
 			<!--voting-->
-			<div align='center'>
+			<br>
+			<div class="left">
 				<a href="/{{ current_joke.id }}/up"><button class="btn btn-primary btn-lg"> <span class="glyphicon glyphicon-thumbs-up"></span></button></a>
 				<a href="/{{ current_joke.id }}/down"><button class="btn btn-primary btn-lg"> <span class="glyphicon glyphicon-thumbs-down"></span></button></a>
 			</div>
+			<div id="fav" class="right">
+				<a href="/{{ current_joke.id }}/fav"><button class="btn btn-primary btn-lg"> <span class="glyphicon glyphicon-star"></span></button></a>
+			</div>
+			<br>
+			<div
 		</div>
 
 </div>

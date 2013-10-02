@@ -42,10 +42,22 @@ def add_user_add(request):
 
 	# add to UserProfiles
 	newUser.save()
-	addUserProf = newUser
+	
+	#temp = User.objects.get(username=request.POST['uname'])
+	addUserProf = UserProfile(user=newUser, numJokesPosted=0)
 	addUserProf.save()
 	return HttpResponseRedirect('/')
 	
+@login_required()
+def fav(request, joke_id):
+	current_joke = get_object_or_404(Joke, pk=joke_id)
+	curUser=UserProfile.objects.get(user=User.objects.get(id=request.user.id))
+	curUser.favorites.add(current_joke)
+	curUser.save()
+	
+	#next_joke = getNextJoke(request)
+	return HttpResponseRedirect(reverse('jokeFeed:detail', args=(current_joke.id,)))
+
 	
 # submitting jokes
 @login_required()
@@ -56,6 +68,10 @@ def submit(request):
 def submit_submit(request):
 	new_joke = Joke(owner=request.user, text=request.POST['joke'], views=0, up=0, down=0, date=datetime.date.today())
 	new_joke.save()
+	curUser=UserProfile.objects.get(user=User.objects.get(id=request.user.id))	
+	curUser.numJokesPosted +=1
+	curUser.save()
+	
 	return HttpResponseRedirect(reverse('jokeFeed:detail', args=(new_joke.id,)))
 	
 # viewing jokes
