@@ -17,4 +17,20 @@
 		</div>
 
 </div>
+
+<script>
+$(document).ready(function() {
+	$(document).keyup(function(event) {
+		if (event.keyCode == 74) // 'j'
+			window.location.replace("/{{ current_joke.id }}/up");
+		else if (event.keyCode == 75) // 'k'
+			window.location.replace("/{{ current_joke.id }}/down");
+		else if (event.keyCode == 85) // 'o'
+			window.location.replace("/{{ current_joke.id }}/fav");
+	})
+})
+</script>
+
 {% endblock %}
+
+
