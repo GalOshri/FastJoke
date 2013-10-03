@@ -52,7 +52,10 @@ def add_user_add(request):
 def fav(request, joke_id):
 	current_joke = get_object_or_404(Joke, pk=joke_id)
 	curUser=UserProfile.objects.get(user=User.objects.get(id=request.user.id))
-	curUser.favorites.add(current_joke)
+	if curUser.favorites.filter(id=current_joke.id).exists():
+		curUser.favorites.remove(current_joke)
+	else:
+		curUser.favorites.add(current_joke)
 	curUser.save()
 	
 	#next_joke = getNextJoke(request)
@@ -77,7 +80,14 @@ def submit_submit(request):
 # viewing jokes
 def detail(request, joke_id):
 	current_joke = get_object_or_404(Joke, pk=joke_id)
-	context = {'current_joke' : current_joke}
+	if request.user.is_authenticated():
+		curUser=UserProfile.objects.get(user=User.objects.get(id=request.user.id))
+		# boolean if curUser has this joke favorited
+		fav_bool = curUser.favorites.filter(id=joke_id).exists()
+	else:
+		fav_bool = 0
+	
+	context = {'current_joke' : current_joke, 'fav_bool' : fav_bool}
 	return render(request, 'jokeFeed/detail.html', context)
 	
 def up(request, joke_id):
