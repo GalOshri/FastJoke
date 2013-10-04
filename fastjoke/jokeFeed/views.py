@@ -36,17 +36,25 @@ def add_user(request):
 	return render(request, 'registration/add_user.html', context)
 	
 def add_user_add(request):
-	newUser = User.objects.create_user(request.POST['uname'], password=request.POST['pwd'])
-	# newUser.last_name = request.POST['last_name']
-	# newUser.first_name = request.POST['first_name']
+	if request.POST['uname'] not in User.objects.all():
+		try:
+			newUser = User.objects.create(username=request.POST['uname'], password=request.POST['pwd'])
+			# newUser.last_name = request.POST['last_name']
+			# newUser.first_name = request.POST['first_name']
 
-	# add to UserProfiles
-	newUser.save()
+			# add to UserProfiles
+			newUser.save()
+		
+			#temp = User.objects.get(username=request.POST['uname'])
+			addUserProf = UserProfile(user=newUser, numJokesPosted=0)
+			addUserProf.save()
+			return HttpResponseRedirect('/')
+		except:
+			error=1
+			context = {'error':error}
+			return render(request, 'registration/add_user.html', context)
+			
 	
-	#temp = User.objects.get(username=request.POST['uname'])
-	addUserProf = UserProfile(user=newUser, numJokesPosted=0)
-	addUserProf.save()
-	return HttpResponseRedirect('/')
 	
 @login_required()
 def fav(request, joke_id):
