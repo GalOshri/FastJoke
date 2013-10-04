@@ -16,7 +16,17 @@
 				<a href="/{{ current_joke.id }}/down"><button class="btn btn-primary btn-lg"> <span class="glyphicon glyphicon-thumbs-down"></span></button></a>
 			</div>
 			<div id="fav" class="right">
-				<a href="/{{ current_joke.id }}/fav"><button class="btn btn-primary btn-lg"> <span class="glyphicon glyphicon-star"></span></button></a>
+				<a href="/{{ current_joke.id }}/fav">
+					
+					{% if fav_bool %}
+					<button class="btn btn-success btn-lg"> 
+						<span class="glyphicon glyphicon-star"></span>
+					{% else %}
+					<button class="btn btn-primary btn-lg"> 
+						<span class="glyphicon glyphicon-star-empty"></span>
+					{% endif %}
+					</button>
+				</a>
 			</div>
 			<br>
 			<div
