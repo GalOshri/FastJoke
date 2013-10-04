@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}User Profile{% endblock %}
+
+{% block content %}
+<div class="container">
+	<div class="jumbotron">
+		<div class="container">
+			<ul>
+			{% for fav_joke in profile.favorites.all %}
+				<li>{{ fav_joke.text }}</li>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+
+
+
+{% endblock %}
+
+

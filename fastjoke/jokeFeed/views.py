@@ -131,3 +131,9 @@ def find_unviewed_joke(request,joke_id):
 		return joke_id
 	else:
 		find_unviewed_joke(joke_id+1)
+
+@login_required()		
+def view_profile(request):
+	curUser = UserProfile.objects.get(user=User.objects.get(id=request.user.id))
+	context = { 'profile' : curUser }
+	return render(request, 'jokeFeed/profile.html', context)
