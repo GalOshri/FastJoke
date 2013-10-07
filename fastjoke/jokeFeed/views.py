@@ -126,6 +126,7 @@ def getNextJoke(request):
 
 def find_unviewed_joke(request,joke_id):
 	#checks array of viewed jokes. If not there, returns number of unviewed joke
+	return 2
 	if joke_id + 1 not in request.session['viewed']:
 		joke_id += 1
 		return joke_id
