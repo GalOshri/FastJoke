@@ -4,6 +4,12 @@
 {% block content %}
 <div class="container">
 	<div class='page-header'><h1><strong>Login</strong><br> <small>sign into your account</small></h1></div>
+	<!--
+	{% if message %}
+		<p class='text-primary'><strong>{{message}}</strong></p>
+	{% else %}
+	{% endif %}
+	-->
 	
 	<form class="form-horizontal" method="post" action="{% url 'django.contrib.auth.views.login' %}">
 	{% csrf_token %}
@@ -16,10 +22,13 @@
 			<label for="id_password" class="col-lg-2 control-label">{{ form.password.label_tag }}</label>
 			<div class="col-lg-6"><input class="form-control" id="id_password" maxlength="254" name="password" type="password"/></div>
 		<div>
-		
+		<br/>
 		<label class='control-label'><input type="submit" value="login" class="btn btn-primary"/></label>
 		<input type="hidden" name="next" value="{{ next }}" />
 	</form>
+	<br/><br/><br/>
+	<p align='right' class='text-muted'> Don't have an account?<br/>
+	<a href='/accounts/add'>Create one!</a></p>
 	
 <!--	OLD TABLE	--!
 	<table>

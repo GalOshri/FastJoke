@@ -59,7 +59,7 @@ def add_user_add(request):
 @login_required()
 def fav(request, joke_id):
 	current_joke = get_object_or_404(Joke, pk=joke_id)
-	curUser=UserProfile.objects.get(user=User.objects.get(id=request.user.id))
+	curUser=UserProfile.objects.get(user=User.objects.get(username=request.user.username))
 	if curUser.favorites.filter(id=current_joke.id).exists():
 		curUser.favorites.remove(current_joke)
 	else:
@@ -77,7 +77,7 @@ def submit(request):
 	return render(request, 'jokeFeed/submit.html', context)
 	
 def submit_submit(request):
-	new_joke = Joke(owner=request.user, text=request.POST['joke'], views=0, up=0, down=0, date=datetime.date.today())
+	new_joke = Joke(owner=request.user, text=request.POST['joke'], upVotes=0, downVotes=0, date=datetime.date.today())
 	new_joke.save()
 	curUser=UserProfile.objects.get(user=User.objects.get(id=request.user.id))	
 	curUser.numJokesPosted +=1
@@ -99,15 +99,15 @@ def detail(request, joke_id):
 	return render(request, 'jokeFeed/detail.html', context)
 	
 def up(request, joke_id):
-	current_joke = get_object_or_404(Joke, pk=joke_id)
-	current_joke.up += 1
+	current_joke = Joke.objects.getet_object_or_404(Joke, pk=joke_id)
+	current_joke.upVotes += 1
 	current_joke.save()
 	next_joke = getNextJoke(request)
 	return HttpResponseRedirect(reverse('jokeFeed:detail', args=(next_joke.id,)))
 
 def down(request, joke_id):
 	current_joke = get_object_or_404(Joke, pk=joke_id)
-	current_joke.down += 1
+	current_joke.downVotes += 1
 	current_joke.save()
 	
 	#algorithm for next joke

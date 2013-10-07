@@ -3,11 +3,11 @@ from django.contrib.auth.models import User
 
 class Joke(models.Model):
 	owner = models.ForeignKey(User, related_name='owns')
-	text = models.CharField(max_length=1000)
+	text = models.TextField(max_length=1000)
 	
-	views = models.IntegerField()
-	up = models.IntegerField()
-	down = models.IntegerField()
+	#views = models.IntegerField()
+	upVotes = models.IntegerField()
+	downVotes = models.IntegerField()
 	
 	date = models.DateField()
 	
@@ -20,7 +20,9 @@ class UserProfile(models.Model):
 	user = models.OneToOneField(User)
 	
 	numJokesPosted = models.IntegerField()
-	favorites = models.ManyToManyField(Joke)
+	favorites = models.ManyToManyField(Joke, related_name = "joke_favorites")
+	votedUp = models.ManyToManyField(Joke, related_name = "joke_votedUp")
+	votedDown = models.ManyToManyField(Joke, related_name = "joke_votedDown")
 	
 	def __unicode__(self):
 		return self.user.username
