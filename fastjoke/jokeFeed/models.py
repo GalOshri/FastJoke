@@ -9,7 +9,7 @@ class Joke(models.Model):
 	upVotes = models.IntegerField()
 	downVotes = models.IntegerField()
 	
-	date = models.DateField()
+	date = models.DateTimeField()
 	
 	def __unicode__(self):
 		return self.text
@@ -20,9 +20,9 @@ class UserProfile(models.Model):
 	user = models.OneToOneField(User)
 	
 	numJokesPosted = models.IntegerField()
-	favorites = models.ManyToManyField(Joke, related_name = "joke_favorites")
-	votedUp = models.ManyToManyField(Joke, related_name = "joke_votedUp")
-	votedDown = models.ManyToManyField(Joke, related_name = "joke_votedDown")
+	favorites = models.ManyToManyField(Joke, related_name = "favorited_by")
+	votedUp = models.ManyToManyField(Joke, related_name = "voted_up_by")
+	votedDown = models.ManyToManyField(Joke, related_name = "voted_down_by")
 	
 	def __unicode__(self):
 		return self.user.username
