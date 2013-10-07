@@ -99,7 +99,7 @@ def detail(request, joke_id):
 	return render(request, 'jokeFeed/detail.html', context)
 	
 def up(request, joke_id):
-	current_joke = Joke.objects.getet_object_or_404(Joke, pk=joke_id)
+	current_joke = get_object_or_404(Joke, pk=joke_id)
 	current_joke.upVotes += 1
 	current_joke.save()
 	next_joke = getNextJoke(request)
