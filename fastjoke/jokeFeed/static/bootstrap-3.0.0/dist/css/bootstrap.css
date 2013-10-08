@@ -25,6 +25,10 @@ summary {
   display: block;
 }
 
+.landingPage {
+	background-image: url("{{STATIC_URL}}sfPretty.jpg");
+}
+
 audio,
 canvas,
 video {
@@ -57,6 +61,14 @@ body {
 .left {
 	float: left;
 }
+
+.transparentJoke {
+	background: rgba(0,0,0,0.3);
+	color: #ffffff;
+}
+
+
+
 
 a:focus {
   outline: thin dotted;
