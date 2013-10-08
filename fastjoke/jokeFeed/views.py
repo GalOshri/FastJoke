@@ -7,27 +7,31 @@ from django.core.urlresolvers import reverse
 from django.http import Http404
 from django.contrib.auth.decorators import login_required
 import datetime
-
-
-# template of templates
-def base(request):
-	context = { }
-	return render(request, 'base.html', context)
 	
 # home/index page. 
 def index(request):
 	# get top joke, but if have viewed, go to the next one. 
 	#set current_joke_num if session was not in place before. use try and except. 
-	try:
-		if request.session['current_joke_num']:
-			pass
-	except: request.session['current_joke_num'] = 0
+	#try:
+	#	if request.session['current_joke_num']:
+	#		pass
+	#except: request.session['current_joke_num'] = 0
 	
 	#create array of viewed jokes
 	#request.session['viewed']=[]
-	
-	next_joke = getNextJoke(request)
-	return HttpResponseRedirect(reverse('jokeFeed:detail', args=(next_joke.id,)))
+	if request.user.is_authenticated():
+		request.session['current_joke_num'] = 1
+		curUser=UserProfile.objects.get(user=User.objects.get(id=request.user.id))
+		next_joke = getNextJoke(request, curUser)
+		return HttpResponseRedirect(reverse('jokeFeed:detail', args=(next_joke.id,)))
+		
+	else:
+
+		top_five = []
+		for i in range(5):
+			top_five.append(getRankJoke(i))
+		context = { 'top_five' : top_five}
+		render(request, 'jokeFeed/index.html', context)
 
 	
 # signing in and creating account	
@@ -76,6 +80,7 @@ def submit(request):
 	context = {}
 	return render(request, 'jokeFeed/submit.html', context)
 	
+@login_required()
 def submit_submit(request):
 	new_joke = Joke(owner=request.user, text=request.POST['joke'], upVotes=0, downVotes=0, date=datetime.date.today())
 	new_joke.save()
@@ -86,44 +91,67 @@ def submit_submit(request):
 	return HttpResponseRedirect(reverse('jokeFeed:detail', args=(new_joke.id,)))
 	
 # viewing jokes
+@login_required()
 def detail(request, joke_id):
 	current_joke = get_object_or_404(Joke, pk=joke_id)
-	if request.user.is_authenticated():
-		curUser=UserProfile.objects.get(user=User.objects.get(id=request.user.id))
-		# boolean if curUser has this joke favorited
-		fav_bool = curUser.favorites.filter(id=joke_id).exists()
-	else:
-		fav_bool = 0
+	curUser=UserProfile.objects.get(user=User.objects.get(id=request.user.id))
+	# boolean if curUser has this joke favorited
+	fav_bool = curUser.favorites.filter(id=joke_id).exists()
 	
 	context = {'current_joke' : current_joke, 'fav_bool' : fav_bool}
 	return render(request, 'jokeFeed/detail.html', context)
 	
+@login_required()
 def up(request, joke_id):
 	current_joke = get_object_or_404(Joke, pk=joke_id)
-	current_joke.upVotes += 1
-	current_joke.save()
+	curUser=UserProfile.objects.get(user=User.objects.get(id=request.user.id))
 	
-	next_joke = getNextJoke(request)
+	if not curUser.votedUp.filter(id=current_joke.id).exists():
+		curUser.votedUp.add(current_joke)
+		current_joke.upVotes += 1
+		current_joke.save()
+		curUser.save()
+		
+	next_joke = getNextJoke(request, curUser)
 	return HttpResponseRedirect(reverse('jokeFeed:detail', args=(next_joke.id,)))
 
+@login_required()
 def down(request, joke_id):
 	current_joke = get_object_or_404(Joke, pk=joke_id)
-	current_joke.downVotes += 1
-	current_joke.save()
+	curUser=UserProfile.objects.get(user=User.objects.get(id=request.user.id))
+
+	if not curUser.votedDown.filter(id=current_joke.id).exists():	
+		curUser.votedDown.add(current_joke)
+		current_joke.downVotes += 1
+		current_joke.save()
+		curUser.save()
 	
 	#algorithm for next joke
-	next_joke = getNextJoke(request)
+	next_joke = getNextJoke(request, curUser)
 	return HttpResponseRedirect(reverse('jokeFeed:detail', args=(next_joke.id,)))
 
-def getNextJoke(request):
+def getNextJoke(request, curUser):
 	#append viewed joke to list. 
 	#request.session['viewed'].append(request.session['current_joke_num'])
 	
-	next_joke_num = find_unviewed_joke(request,request.session['current_joke_num'])
+	num_jokes = len(Joke.objects.all())
 	
-	#set new current_joke_num for session. 
-	request.session['current_joke_num']=next_joke_num
-	return get_object_or_404(Joke, pk=request.session['current_joke_num'])
+	next_joke_num = request.session['current_joke_num']
+	
+	while next_joke_num <= num_jokes:
+		
+		request.session['current_joke_num'] = next_joke_num
+		next_joke = getRankJoke(next_joke_num)
+		if not (curUser.votedDown.filter(id=next_joke.id).exists() or curUser.votedUp.filter(id=next_joke.id).exists()):
+			return next_joke
+		next_joke_num = request.session['current_joke_num'] + 1
+	
+	raise Http404
+	
+def getRankJoke(rank):
+	rank = rank
+	new_joke = Joke.objects.get(pk=rank)
+	return get_object_or_404(Joke, pk=new_joke.id)
 
 @login_required()		
 def view_profile(request):
