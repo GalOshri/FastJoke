@@ -24,7 +24,7 @@ def index(request):
 	except: request.session['current_joke_num'] = 0
 	
 	#create array of viewed jokes
-	request.session['viewed']=[]
+	#request.session['viewed']=[]
 	
 	next_joke = getNextJoke(request)
 	return HttpResponseRedirect(reverse('jokeFeed:detail', args=(next_joke.id,)))
@@ -102,6 +102,7 @@ def up(request, joke_id):
 	current_joke = get_object_or_404(Joke, pk=joke_id)
 	current_joke.upVotes += 1
 	current_joke.save()
+	
 	next_joke = getNextJoke(request)
 	return HttpResponseRedirect(reverse('jokeFeed:detail', args=(next_joke.id,)))
 
@@ -116,25 +117,23 @@ def down(request, joke_id):
 
 def getNextJoke(request):
 	#append viewed joke to list. 
-	request.session['viewed'].append(request.session['current_joke_num'])
+	#request.session['viewed'].append(request.session['current_joke_num'])
 	
-	next_joke_num=find_unviewed_joke(request,request.session['current_joke_num'])
+	next_joke_num = find_unviewed_joke(request,request.session['current_joke_num'])
 	
 	#set new current_joke_num for session. 
 	request.session['current_joke_num']=next_joke_num
 	return get_object_or_404(Joke, pk=request.session['current_joke_num'])
 
-def find_unviewed_joke(request,joke_id):
-	#checks array of viewed jokes. If not there, returns number of unviewed joke
-	return 2
-	if joke_id + 1 not in request.session['viewed']:
-		joke_id += 1
-		return joke_id
-	else:
-		find_unviewed_joke(joke_id+1)
-
 @login_required()		
 def view_profile(request):
 	curUser = UserProfile.objects.get(user=User.objects.get(id=request.user.id))
-	context = { 'profile' : curUser }
+	joke_list = curUser.user.owns.all()
+	context = { 'joke_list' : joke_list }
 	return render(request, 'jokeFeed/profile.html', context)
+	
+@login_required()		
+def view_fav(request):
+	curUser = UserProfile.objects.get(user=User.objects.get(id=request.user.id))
+	context = { 'profile' : curUser }
+	return render(request, 'jokeFeed/fav.html', context)

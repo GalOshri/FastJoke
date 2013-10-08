@@ -13,7 +13,13 @@ class Joke(models.Model):
 	
 	def __unicode__(self):
 		return self.text
+		
+	def _get_score(self):
+		return self.upVotes - self.downVotes
+		
+	score = property(_get_score)
 
+	
 # Create your models here.
 class UserProfile(models.Model):
 	#associated with one user
