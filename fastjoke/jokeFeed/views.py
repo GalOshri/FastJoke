@@ -155,8 +155,14 @@ def getRankJoke(rank):
 	return get_object_or_404(Joke, pk=new_joke.id)
 
 @login_required()		
-def view_profile(request):
-	curUser = UserProfile.objects.get(user=User.objects.get(id=request.user.id))
+def view_profile(request, username):
+	if not username:
+		curUser = UserProfile.objects.get(user=User.objects.get(id=request.user.id))
+	else:
+		try:
+			curUser = UserProfile.objects.get(user=User.objects.get(username=username))
+		except:
+			return HttpResponseRedirect(reverse('jokeFeed:index'))
 	joke_list = curUser.user.owns.all()
 	context = { 'joke_list' : joke_list }
 	return render(request, 'jokeFeed/profile.html', context)
