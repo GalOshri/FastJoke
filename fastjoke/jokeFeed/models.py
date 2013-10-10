@@ -33,4 +33,12 @@ class UserProfile(models.Model):
 	def __unicode__(self):
 		return self.user.username
 
+class UserFeedback(models.Model):
+	feedback = models.TextField(max_length=2000)
+	
+	date = models.DateTimeField()
+	
+	def __unicode__(self):
+		return self.feedback
+
 		

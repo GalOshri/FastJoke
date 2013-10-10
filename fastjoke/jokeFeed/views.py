@@ -2,7 +2,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
-from jokeFeed.models import UserProfile, Joke
+from jokeFeed.models import UserProfile, Joke, UserFeedback
 from django.core.urlresolvers import reverse
 from django.http import Http404
 from django.contrib.auth.decorators import login_required
@@ -172,3 +172,14 @@ def view_fav(request):
 	curUser = UserProfile.objects.get(user=User.objects.get(id=request.user.id))
 	context = { 'profile' : curUser }
 	return render(request, 'jokeFeed/fav.html', context)
+	
+# feedback
+def feedback(request):
+	context = {}
+	return render(request, 'jokeFeed/feedback.html', context)
+	
+def feedback_submit(request):
+	new_feedback = UserFeedback(feedback=request.POST['feedback'], date=datetime.date.today())
+	new_feedback.save()
+	
+	return HttpResponseRedirect(reverse('jokeFeed:index'))
