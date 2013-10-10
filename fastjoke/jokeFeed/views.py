@@ -141,9 +141,10 @@ def getNextJoke(request, curUser):
 	while next_joke_num <= num_jokes:
 		
 		request.session['current_joke_num'] = next_joke_num
-		next_joke = getRankJoke(next_joke_num)
-		if not (curUser.votedDown.filter(id=next_joke.id).exists() or curUser.votedUp.filter(id=next_joke.id).exists()):
-			return next_joke
+		if Joke.objects.filter(pk=next_joke_num).exists():
+			next_joke = getRankJoke(next_joke_num)
+			if not (curUser.votedDown.filter(id=next_joke.id).exists() or curUser.votedUp.filter(id=next_joke.id).exists()):
+				return next_joke
 		next_joke_num = request.session['current_joke_num'] + 1
 	
 	raise Http404
