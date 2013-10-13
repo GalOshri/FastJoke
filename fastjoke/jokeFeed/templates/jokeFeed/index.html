@@ -4,71 +4,68 @@
 
 {% block content %}
 <div class='landingPage'>
-	<div class="container">
-		<div class='right landingPageCreate'>
-			<div class='page-header'><h3><strong>create an account</strong><br><small>Already have one? Login <a href="/accounts/login">here</a></small></h3></div>
-	
-				{% if error %}
-					<p class='text-danger'><strong>Sorry, this username already exists. Please create another one.</strong></p>
-				{% else %}	
-				{% endif %}
-				<br/>
-				<form class="form-horizontal" role="form" action="{% url 'add_user_add' %}" method="post">
-					{% csrf_token %}
-					
-					
-					{% if error %}
-						<div class="form-group has-error">
-							<label for="username" class="col-md-1 control-label">Username:</label>
-							<div class="col-md-3"><input class="form-control" id="uname" name="uname" type="text"/></div>
-						</div>
-					{% else %}
-						<div class="form-group">
-							<label for="username" class="col-md-1 control-label">Username:</label>
-							<div class="col-md-3"><input class="form-control" id="uname" name="uname" type="text"/></div>
-						</div>
-					{% endif %}
-					
-					<!--<div class="form-group">
-						<label for="email" class="col-lg-2 control-label">Email:</label>
-							<div class="col-lg-6"><input class="form-control" id="email" name="email" type="text"/></div>
-					</div>-->
-					
-					{% if error %}
-						<div class="form-group has-error">
-							<label for="pwd" class="col-md-1 control-label">Password:</label>
-							<div class="col-md-3"><input class="form-control" id="pwd" name="pwd" type="password"/></div>
-						</div>
-					{% else %}
-						<div class="form-group">
-							<label for="pwd" class="col-md-1 control-label">Password:</label>
-							<div class="col-md-3"><input class="form-control" id="pwd" name="pwd" type="password"/></div>
-						</div>
-					{% endif %}
-					
-					<div class="form-group">
-						<label class='control-label'><button type="submit" class="btn btn-primary" name="submit_user_form">Join!</button></label>
-					</div>
-				</form>
+	<div class='right landingPageCreate'>
+		<div><h3><strong>create an account</strong><br><small>Already have one? Login <a href="/accounts/login">here</a></small></h3></div>
+			{% if error %}
+				<p class='text-danger'><strong>Sorry, this username already exists. Please create another one.</strong></p>
+			{% else %}	
+			{% endif %}
+			<br/>
+			<form class="form-horizontal" role="form" action="{% url 'add_user_add' %}" method="post">
+				{% csrf_token %}
 				
+				
+				{% if error %}
+					<div class="form-group has-error">
+						<label for="username" class="col-lg-4 control-label">Username:</label>
+						<div class="col-lg-6"><input class="form-control" id="uname" name="uname" type="text"/></div>
+					</div>
+				{% else %}
+					<div class="form-group">
+						<label for="username" class="col-md-4 control-label">Username:</label>
+						<div class="col-md-6"><input class="form-control" id="uname" name="uname" type="text"/></div>
+					</div>
+				{% endif %}
+				
+				<!--<div class="form-group">
+					<label for="email" class="col-lg-2 control-label">Email:</label>
+						<div class="col-lg-6"><input class="form-control" id="email" name="email" type="text"/></div>
+				</div>-->
+				
+				{% if error %}
+					<div class="form-group has-error">
+						<label for="pwd" class="col-md-4 control-label">Password:</label>
+						<div class="col-md-6"><input class="form-control" id="pwd" name="pwd" type="password"/></div>
+					</div>
+				{% else %}
+					<div class="form-group">
+						<label for="pwd" class="col-md-4 control-label">Password:</label>
+						<div class="col-md-6"><input class="form-control" id="pwd" name="pwd" type="password"/></div>
+					</div>
+				{% endif %}
+				
+				<div class="form-group">
+					<label class='col-md-4 control-label'><button type="submit" class="btn btn-primary" name="submit_user_form">Join!</button></label>
+				</div>
+			</form>			
 		</div>
 		
-		<div float='left'>
+	<div class="container">
+		<div class='LandingPageLeft'>
 			<div class='transparentJoke'>
-				<p>It's simple. You see a joke. Decide if you like it or dislike. Is it one of the funniest jokes you've seen? share it, star it, save it for later. Then, it's onto the next one. </p>
-				<p>Here's to time well spent.</p>
-				<p><small>Team lolsicles</small></p>
+				<div><h1><strong>It's simple. See joke. Vote.</strong><br><small>Share it, star it, save it for later. Then, onto the next one.<br/>Here's to time well spent.</small></h1></div>
 			</div>
 			<br/><br/>
 			
-			<div class='transparentJoke'>Top 5 jokes right now:</div>
-			<br/>
-			{% for joke in top_five %}
-				<div class="transparentJoke">
-					<p>{{ joke }} </p>
-				</div>
+			<div class='transparentJoke'><h2>Top jokes right now:</h2>
 				<br/>
-			{% endfor %}
+				{% for joke in top_five %}
+					<div class="">
+						<p>{{ joke }} </p>
+					</div>
+					<br/>
+				{% endfor %}
+			</div>
 		</div>
 	</div>
 
