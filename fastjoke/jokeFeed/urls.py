@@ -11,7 +11,10 @@ urlpatterns = patterns('jokeFeed.views',
 	url(r'^(?P<joke_id>\d+)/down/$', 'down', name='down'),
 	url(r'^(?P<joke_id>\d+)/fav/$', 'fav', name='fav'),
 	url(r'^user/fav$', 'view_fav', name='user_fav'),
-	url(r'^user/profile$', 'view_profile', name='user_profile'),
+	url(r'^user/$', 'view_profile', {'username' : ''}),
+	url(r'^user/(?P<username>.+)/$', 'view_profile', name='profile'),
+	url(r'^feedback$', 'feedback', name='feedback'),
+	url(r'^feedback/submit$', 'feedback_submit', name='feedback_submit'),
 	
     # Examples:
     # url(r'^$', 'kit.views.home', name='home'),
