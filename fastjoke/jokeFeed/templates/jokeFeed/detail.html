@@ -3,11 +3,17 @@
 {% block title %}Haha Funny Joke Lah!{% endblock %}
 
 {% block content %}
+	<div class='right keyboardShortcuts'>
+	<h5>Keyboard shortcuts:</h1>
+	<ul>
+		<li>'J' : Good joke</li>
+		<li>'K' : Lame joke</li>
+		<li>'U' : Favorite this joke</li>
+	</div>
 <div class="container">
+
 	<div class="jumbotron">
 		<div class="container">
-			<p>hi</p>
-			<br>
 			<h1>{{ current_joke.text }}</h1>
 			<!--voting-->
 			<br>

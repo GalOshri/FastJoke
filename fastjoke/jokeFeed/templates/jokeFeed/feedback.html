@@ -4,8 +4,12 @@
 
 {% block content %}
 <div class="container">
+
 	<div class="jumbotron">
+	
 		<div class="container">
+			<p> Please let us know if you like this website and want us to keep working to improve it! </p>
+			</br>
 			<form class="form-horizontal" role="form" action="{% url 'jokeFeed:feedback_submit' %}" method="post">
 				{% csrf_token %}
 				<div class="form-group">
