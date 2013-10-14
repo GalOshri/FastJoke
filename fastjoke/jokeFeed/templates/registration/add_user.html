@@ -4,58 +4,64 @@
 
 {% block content %}
 <div class="container">
-	<div class='page-header'><h1><strong>New Users</strong><br> <small>create your own account</small></h1></div>
-	
-	{% if error %}
-		<p class='text-danger'><strong>Sorry, this username already exists. Please create another one.</strong></p>
-	{% else %}	
-	{% endif %}
-	<br/>
-	<form class="form-horizontal" role="form" action="{% url 'add_user_add' %}" method="post">
-		{% csrf_token %}
-		<!--<div class="form-group">
-			<label for="first_name" class="col-lg-2 control-label">First Name:</label>
-			<div class="col-lg-6"><input class="form-control" id="first_name" name="first_name" type="text"/></div>
-		</div>
+	<div class="jumbotron">
+		<div class="container">
+			<h1><strong>New Users</strong><br> <small>create your own account</small></h1>
+			<!--voting-->
+			<br/>
+			
+			{% if error %}
+			<p class='alert alert-danger'><strong>Sorry, this username already exists. Please create another one.</strong></p>
+			{% else %}	
+			{% endif %}
+			<br/>
+			<form class="form-horizontal" role="form" action="{% url 'add_user_add' %}" method="post">
+				{% csrf_token %}
+				<!--<div class="form-group">
+					<label for="first_name" class="col-lg-2 control-label">First Name:</label>
+					<div class="col-lg-6"><input class="form-control" id="first_name" name="first_name" type="text"/></div>
+				</div>
+						
+				<div class="form-group">
+					<label for="last_name" class="col-lg-2 control-label">Last Name:</label>
+						<div class="col-lg-6"><input class="form-control" id="last_name" name="last_name" type="text"/></div>
+				</div>-->
 				
-		<div class="form-group">
-			<label for="last_name" class="col-lg-2 control-label">Last Name:</label>
-				<div class="col-lg-6"><input class="form-control" id="last_name" name="last_name" type="text"/></div>
-		</div>-->
-		
-		{% if error %}
-			<div class="form-group has-error">
-				<label for="username" class="col-lg-2 control-label">Username:</label>
-				<div class="col-lg-6"><input class="form-control" id="uname" name="uname" type="text"/></div>
-			</div>
-		{% else %}
-			<div class="form-group">
-				<label for="username" class="col-lg-2 control-label">Username:</label>
-				<div class="col-lg-6"><input class="form-control" id="uname" name="uname" type="text"/></div>
-			</div>
-		{% endif %}
-		
-		<!--<div class="form-group">
-			<label for="email" class="col-lg-2 control-label">Email:</label>
-				<div class="col-lg-6"><input class="form-control" id="email" name="email" type="text"/></div>
-		</div>-->
-		
-		{% if error %}
-			<div class="form-group has-error">
-				<label for="pwd" class="col-lg-2 control-label">Password:</label>
-				<div class="col-lg-6"><input class="form-control" id="pwd" name="pwd" type="password"/></div>
-			</div>
-		{% else %}
-			<div class="form-group">
-				<label for="pwd" class="col-lg-2 control-label">Password:</label>
-				<div class="col-lg-6"><input class="form-control" id="pwd" name="pwd" type="password"/></div>
-			</div>
-		{% endif %}
-		
-		<div class="form-group">
-			<label class='control-label'><button type="submit" class="btn btn-primary" name="submit_user_form">Join!</button></label>
+				{% if error %}
+					<div class="form-group has-error">
+						<label for="username" class="col-lg-2 control-label">Username:</label>
+						<div class="col-lg-6"><input class="form-control" id="uname" name="uname" type="text"/></div>
+					</div>
+				{% else %}
+					<div class="form-group">
+						<label for="username" class="col-lg-2 control-label">Username:</label>
+						<div class="col-lg-6"><input class="form-control" id="uname" name="uname" type="text"/></div>
+					</div>
+				{% endif %}
+				
+				<!--<div class="form-group">
+					<label for="email" class="col-lg-2 control-label">Email:</label>
+						<div class="col-lg-6"><input class="form-control" id="email" name="email" type="text"/></div>
+				</div>-->
+				
+				{% if error %}
+					<div class="form-group has-error">
+						<label for="pwd" class="col-lg-2 control-label">Password:</label>
+						<div class="col-lg-6"><input class="form-control" id="pwd" name="pwd" type="password"/></div>
+					</div>
+				{% else %}
+					<div class="form-group">
+						<label for="pwd" class="col-lg-2 control-label">Password:</label>
+						<div class="col-lg-6"><input class="form-control" id="pwd" name="pwd" type="password"/></div>
+					</div>
+				{% endif %}
+				
+				<div class="form-group">
+					<label class='control-label'><button type="submit" class="btn btn-primary" name="submit_user_form">Join!</button></label>
+				</div>
+			</form>
+			
 		</div>
-	</form>
-	
+	</div>
 </div>
 {% endblock %}

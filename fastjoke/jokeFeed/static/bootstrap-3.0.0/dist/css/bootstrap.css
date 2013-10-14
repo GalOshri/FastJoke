@@ -593,7 +593,8 @@ h4 small,
   padding-bottom: 9px;
   margin: 40px 0 20px;
   border-bottom: 1px solid #eeeeee;
-  color: #463265;
+  background-color: #463265;
+  color:#ffffff;
 }
 
 ul,
@@ -1912,7 +1913,7 @@ textarea.input-lg {
 
 .has-error .help-block,
 .has-error .control-label {
-  color: #b94a48;
+  
 }
 
 .has-error .form-control {

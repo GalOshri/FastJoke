@@ -3,54 +3,74 @@
 
 {% block content %}
 <div class="container">
-	<div class='page-header'><h1><strong>Login</strong><br> <small>sign into your account</small></h1></div>
-	<!--
-	{% if message %}
-		<p class='text-primary'><strong>{{message}}</strong></p>
-	{% else %}
-	{% endif %}
-	-->
+	<div class="jumbotron">
+		<div class="container">
+			<h1><strong>Login</strong><br> <small>sign into your account</small></h1>
+			<!--voting-->
+			<br/>
+			
+			{% if form.errors %}
+				<div class="alert alert-danger"><p><strong>Your username and password didn't match. Please try again.</strong></p></div>
+			{% endif %}
+			<br/>
+			
+			<form class="form-horizontal" method="post" action="{% url 'django.contrib.auth.views.login' %}">
+				{% csrf_token %}
+					{% if error %}
+						<div class="form-group has-error">
+							<label for="id_username" class="col-lg-2 control-label">{{ form.username.label_tag }}</label>
+							<div class="col-lg-6"><input class="form-control" id="id_username" maxlength="254" name="username" type="text"/></div>
+						</div>
+					{% else %}
+						<div class="form-group">
+							<label for="id_username" class="col-lg-2 control-label">{{ form.username.label_tag }}</label>
+							<div class="col-lg-6"><input class="form-control" id="id_username" maxlength="254" name="username" type="text"/></div>
+						</div>
+					{% endif %}
+					
+					{% if error %}
+						<div class="form-group has-error">
+							<label for="id_password" class="col-lg-2 control-label">{{ form.password.label_tag }}</label>
+							<div class="col-lg-6"><input class="form-control" id="id_password" maxlength="254" name="password" type="password"/></div>
+						</div>
+					{% else %}
+						<div class="form-group">
+							<label for="id_password" class="col-lg-2 control-label">{{ form.password.label_tag }}</label>
+							<div class="col-lg-6"><input class="form-control" id="id_password" maxlength="254" name="password" type="password"/></div>
+						</div>
+					{% endif %}
+						
+					<br/>
+					<label class='control-label'><input type="submit" value="login" class="btn btn-primary"/></label>
+					<input type="hidden" name="next" value="{{ next }}" />
+			</form>
+			<br/>
+			
+			
+
+			<p align='right' class='text-muted'> Don't have an account?<br/>
+			<a href='/accounts/add'><strong>Create one!</strong></a></p>
 	
-	<form class="form-horizontal" method="post" action="{% url 'django.contrib.auth.views.login' %}">
-	{% csrf_token %}
-		<div class="form-group">
-			<label for="id_username" class="col-lg-2 control-label">{{ form.username.label_tag }}</label>
-			<div class="col-lg-6"><input class="form-control" id="id_username" maxlength="254" name="username" type="text"/></div>
+			<!--	OLD TABLE	--!
+				<table>
+					<tr>
+						<td>{{ form.username.label_tag }}</td>
+						<td>{{ form.username }}</td>
+					</tr>
+					<tr>
+						<td>{{ form.password.label_tag }}</td>
+						<td>{{ form.password }}</td>
+					</tr>
+				</table>
+
+				<input type="submit" value="login" />
+				<input type="hidden" name="next" value="{{ next }}" />
+				</form>
+			-->
 		</div>
-	
-		<div class="form-group">
-			<label for="id_password" class="col-lg-2 control-label">{{ form.password.label_tag }}</label>
-			<div class="col-lg-6"><input class="form-control" id="id_password" maxlength="254" name="password" type="password"/></div>
-		<div>
-		<br/>
-		<label class='control-label'><input type="submit" value="login" class="btn btn-primary"/></label>
-		<input type="hidden" name="next" value="{{ next }}" />
-	</form>
-	<br/><br/><br/>
-	<p align='right' class='text-muted'> Don't have an account?<br/>
-	<a href='/accounts/add'>Create one!</a></p>
-	
-<!--	OLD TABLE	--!
-	<table>
-		<tr>
-			<td>{{ form.username.label_tag }}</td>
-			<td>{{ form.username }}</td>
-		</tr>
-		<tr>
-			<td>{{ form.password.label_tag }}</td>
-			<td>{{ form.password }}</td>
-		</tr>
-	</table>
-
-	<input type="submit" value="login" />
-	<input type="hidden" name="next" value="{{ next }}" />
-	</form>
--->
-	
-	{% if form.errors %}
-	<br><br>
-	<div class="alert alert-danger"><p>Your username and password didn't match. Please try again.</p></div>
-	{% endif %}
-
+	</div>
 </div>
+
+	
+
 {% endblock %}
