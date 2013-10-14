@@ -119,6 +119,9 @@ def up(request, joke_id):
 		curUser.save()
 		
 	next_joke = getNextJoke(request, curUser)
+	if next_joke == 0:
+		context = {}
+		return render(request, 'jokeFeed/no_life.html', context)
 	return HttpResponseRedirect(reverse('jokeFeed:detail', args=(next_joke.id,)))
 
 @login_required()
@@ -134,6 +137,9 @@ def down(request, joke_id):
 	
 	#algorithm for next joke
 	next_joke = getNextJoke(request, curUser)
+	if next_joke == 0:
+		context = {}
+		return render(request, 'jokeFeed/no_life.html', context)
 	return HttpResponseRedirect(reverse('jokeFeed:detail', args=(next_joke.id,)))
 
 def getNextJoke(request, curUser):
@@ -153,7 +159,7 @@ def getNextJoke(request, curUser):
 				return next_joke
 		next_joke_num = request.session['current_joke_num'] + 1
 	
-	raise Http404
+	return 0
 	
 def getRankJoke(rank):
 	rank = rank
@@ -189,3 +195,4 @@ def feedback_submit(request):
 	new_feedback.save()
 	
 	return HttpResponseRedirect(reverse('jokeFeed:index'))
+	
