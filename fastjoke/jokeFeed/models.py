@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.template.defaultfilters import escape
+from django.core.urlresolvers import reverse
 
 class Joke(models.Model):
 	owner = models.ForeignKey(User, related_name='owns')
@@ -18,6 +20,14 @@ class Joke(models.Model):
 		return self.upVotes - self.downVotes
 		
 	score = property(_get_score)
+	
+	def _get_absolute_url(self):
+		return reverse('detail', args=[self.id])
+		
+	url = property(_get_absolute_url)
+	
+	def html(self):
+		return "<a href=\"{0}\">{1}</a>".format(self.url, escape(self.text))
 
 	
 # Create your models here.
