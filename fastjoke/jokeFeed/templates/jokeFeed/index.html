@@ -53,7 +53,7 @@
 	<div class="container">
 		<div class='LandingPageLeft'>
 			<div class='transparentJoke'>
-				<div><h1><strong>It's simple. See joke. Vote.</strong><br><small>Share it, star it, save it for later. Then, onto the next one.<br/>Here's to time well spent.</small></h1></div>
+				<div><h1><strong>It's simple. See joke. Vote.</strong><br><small>Then, onto the next one.<br/>Here's to time well spent.</small></h1></div>
 			</div>
 			<br/><br/>
 			
@@ -61,7 +61,7 @@
 				<br/>
 				{% for joke in top_five %}
 					<div class="">
-						<p>{{ joke }} </p>
+						<strong>{{ joke }} </strong>
 					</div>
 					<br/>
 				{% endfor %}
@@ -69,8 +69,6 @@
 		</div>
 	</div>
 
-	<p>Up</p>
-	<p>Down</p>
 
 
 	</div>
