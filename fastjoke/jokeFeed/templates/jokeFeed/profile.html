@@ -6,9 +6,12 @@
 <div class="container">
 	<div class="jumbotron">
 		<div class="container">
-			<ul>
+		<h1>{{ username }}</h1>
+			<ul class="list-unstyled">
 			{% for joke in joke_list %}
-				<li>{{ joke.score }} : {{ joke.text }}</li>
+				<li class="padded-list">
+					<a href="/{{joke.id}}">{{ joke.score }} : {{ joke.text }}</a>
+				</li>
 			{% endfor %}
 		</div>
 	</div>

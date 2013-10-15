@@ -182,7 +182,7 @@ def view_profile(request, username):
 	joke_list = curUser.user.owns.all()
 	
 	joke_list = sorted(joke_list, key = lambda joke: joke.score, reverse=True)
-	context = { 'joke_list' : joke_list }
+	context = { 'joke_list' : joke_list, 'username' : curUser.user.username }
 	
 	return render(request, 'jokeFeed/profile.html', context)
 	
