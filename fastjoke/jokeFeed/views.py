@@ -180,7 +180,10 @@ def view_profile(request, username):
 		except:
 			return HttpResponseRedirect(reverse('jokeFeed:index'))
 	joke_list = curUser.user.owns.all()
+	
+	joke_list = sorted(joke_list, key = lambda joke: joke.score, reverse=True)
 	context = { 'joke_list' : joke_list }
+	
 	return render(request, 'jokeFeed/profile.html', context)
 	
 @login_required()		
