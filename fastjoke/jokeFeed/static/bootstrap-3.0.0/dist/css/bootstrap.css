@@ -56,6 +56,10 @@ body {
   margin: 0;
 }
 
+.padded-list {
+	padding-bottom: 10px;
+}
+
 .right{
 	float: right;
 }

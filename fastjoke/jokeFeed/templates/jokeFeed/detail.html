@@ -15,7 +15,7 @@
 				<a href="/{{ current_joke.id }}/down"><button class="btn btn-primary btn-lg"> <span class="glyphicon glyphicon-thumbs-down"></span></button></a>
 			</div>
 			<div id="fav" class="right">
-				<a href="/{{ current_joke.id }}/fav">
+				<a href="/{{ current_joke.id }}/fav/?next=/{{current_joke.id}}">
 					
 					{% if fav_bool %}
 					<button class="btn btn-success btn-lg"> 
