@@ -77,7 +77,7 @@ def fav(request, joke_id):
 	curUser.save()
 	
 	#next_joke = getNextJoke(request)
-	if request.GET['next']:
+	if 'next' in request.GET:
 		return HttpResponseRedirect(request.GET['next'])
 	else:
 		return HttpResponseRedirect(reverse('jokeFeed:detail', args=(current_joke.id,)))
