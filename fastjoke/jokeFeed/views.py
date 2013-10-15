@@ -106,8 +106,9 @@ def detail(request, joke_id):
 	curUser=UserProfile.objects.get(user=User.objects.get(id=request.user.id))
 	# boolean if curUser has this joke favorited
 	fav_bool = curUser.favorites.filter(id=joke_id).exists()
+	creator = current_joke.owner.username
 	
-	context = {'current_joke' : current_joke, 'fav_bool' : fav_bool}
+	context = {'current_joke' : current_joke, 'fav_bool' : fav_bool, 'creator':creator}
 	return render(request, 'jokeFeed/detail.html', context)
 	
 @login_required()
