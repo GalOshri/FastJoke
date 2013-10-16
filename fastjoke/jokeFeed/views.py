@@ -180,9 +180,12 @@ def view_profile(request, username):
 		except:
 			return HttpResponseRedirect(reverse('jokeFeed:index'))
 	joke_list = curUser.user.owns.all()
+	total_score = 0
+	for joke in joke_list:
+		total_score += joke.score
 	
 	joke_list = sorted(joke_list, key = lambda joke: joke.score, reverse=True)
-	context = { 'joke_list' : joke_list, 'username' : curUser.user.username }
+	context = { 'joke_list' : joke_list, 'username' : curUser.user.username, 'total_score' : total_score }
 	
 	return render(request, 'jokeFeed/profile.html', context)
 	
