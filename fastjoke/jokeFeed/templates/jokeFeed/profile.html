@@ -6,14 +6,18 @@
 <div class="container">
 	<div class="jumbotron">
 		<div class="container">
-		<h1>{{ username }} - {{ total_score }}</h1>
-		</br>
-			<ul class="list-unstyled">
-			{% for joke in joke_list %}
-				<li class="padded-list">
-					<a href="/{{joke.id}}">{{ joke.score }} : {{ joke.text }}</a>
-				</li>
-			{% endfor %}
+		<h1 class='left'>{{ username }}<small></h1><h1 class='right'> overall score: {{ total_score }}</small></h1>
+		<br><br/><br>
+		
+		<table class="table">
+			<tbody>
+				<tr<th><td><strong>Score</strong></td><td><strong>Joke</strong></td></th></tr>
+				{% for joke in joke_list %}
+				<tr><td>{{ joke.score }}</td><td><a href="/{{joke.id}}">{{ joke.text }}</a></td></tr>
+			
+				{% endfor %}
+			</tbody>
+		</table>
 		</div>
 	</div>
 </div>
