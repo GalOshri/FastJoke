@@ -11,8 +11,22 @@
 			<!--voting-->
 			<br>
 			<div class="left">
-				<a href="/{{ current_joke.id }}/up"><button class="btn btn-primary btn-lg"> <span class="glyphicon glyphicon-thumbs-up"></span></button></a>
-				<a href="/{{ current_joke.id }}/down"><button class="btn btn-primary btn-lg"> <span class="glyphicon glyphicon-thumbs-down"></span></button></a>
+			
+				<a href="/{{ current_joke.id }}/up">
+					{% if up_bool %}
+					<button class="btn btn-success btn-lg"> <span class="glyphicon glyphicon-thumbs-up"></span></button>
+					{% else %}
+					<button class="btn btn-primary btn-lg"> <span class="glyphicon glyphicon-thumbs-up"></span></button>
+					{% endif %}
+				</a>
+				
+				<a href="/{{ current_joke.id }}/down">
+					{% if down_bool %}
+					<button class="btn btn-success btn-lg"> <span class="glyphicon glyphicon-thumbs-down"></span></button>
+					{% else %}
+					<button class="btn btn-primary btn-lg"> <span class="glyphicon glyphicon-thumbs-down"></span></button>
+					{% endif %}
+				</a>
 			</div>
 			<div id="fav" class="right">
 				<a href="/{{ current_joke.id }}/fav/?next=/{{current_joke.id}}">

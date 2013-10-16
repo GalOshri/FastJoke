@@ -108,7 +108,10 @@ def detail(request, joke_id):
 	fav_bool = curUser.favorites.filter(id=joke_id).exists()
 	creator = current_joke.owner.username
 	
-	context = {'current_joke' : current_joke, 'fav_bool' : fav_bool, 'creator':creator}
+	up_bool = curUser.votedUp.filter(id=joke_id).exists()
+	down_bool = curUser.votedDown.filter(id=joke_id).exists()
+	
+	context = {'current_joke' : current_joke, 'fav_bool' : fav_bool, 'creator': creator, 'up_bool' : up_bool, 'down_bool' : down_bool}
 	return render(request, 'jokeFeed/detail.html', context)
 	
 @login_required()
@@ -121,7 +124,13 @@ def up(request, joke_id):
 		current_joke.upVotes += 1
 		current_joke.save()
 		curUser.save()
-		
+	
+	if curUser.votedDown.filter(id=current_joke.id).exists():
+		curUser.votedDown.remove(current_joke)
+		current_joke.downVotes -= 1
+		current_joke.save()
+		curUser.save()
+	
 	next_joke = getNextJoke(request, curUser)
 	if next_joke == 0:
 		context = {}
@@ -136,6 +145,12 @@ def down(request, joke_id):
 	if not curUser.votedDown.filter(id=current_joke.id).exists():	
 		curUser.votedDown.add(current_joke)
 		current_joke.downVotes += 1
+		current_joke.save()
+		curUser.save()
+		
+	if curUser.votedUp.filter(id=current_joke.id).exists():
+		curUser.votedUp.remove(current_joke)
+		current_joke.upVotes -= 1
 		current_joke.save()
 		curUser.save()
 	
