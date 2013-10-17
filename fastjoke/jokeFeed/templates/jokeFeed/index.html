@@ -53,18 +53,17 @@
 	<div class="container">
 		<div class='LandingPageLeft'>
 			<div class='transparentJoke'>
-				<div><h1><strong>It's simple. See joke. Vote.</strong><br><small>Then, onto the next one.<br/>Here's to time well spent.</small></h1></div>
+				<div><h1><strong>It's simple. See joke. Vote.</strong><br><small>Then, onto the next one. Here's to time well spent.</small></h1></div>
 			</div>
 			<br/><br/>
 			
-			<div class='transparentJoke'><h2>Top jokes right now:</h2>
-				<br/>
-				{% for joke in top_five %}
-					<div class="">
-						<strong>{{ joke }} </strong>
-					</div>
-					<br/>
-				{% endfor %}
+			<div class='transparentJoke1'><h2 style='color:#ffffff;'>Top jokes right now:</h2>
+			
+				<div lass='list-group'>
+					{% for joke in top_five %}
+						<a class='list-group-item' href='#'>{{ joke }}</a>
+					{% endfor %}
+				</div>
 			</div>
 		</div>
 	</div>

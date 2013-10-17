@@ -26,8 +26,10 @@ summary {
 }
 
 .landingPage {
-	background-image: url("sfPretty.jpg");
+	background-color: #463265;
+	/*background-image: url("http://funcomputerbackgrounds.webs.com/photos/Food/purple%20powerpoint%20background%201.jpg");*/
 	width:100%;
+	height:100%;
 	
 }
 
@@ -50,6 +52,7 @@ html {
   font-family: sans-serif;
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
+
 }
 
 body {
@@ -75,7 +78,7 @@ body {
 }
 
 .transparentJoke {
-	background: rgba(0,0,0,0.3);
+	
 	color: #ffffff;
 }
 
@@ -202,6 +205,7 @@ textarea {
   margin: 0;
   font-family: inherit;
   font-size: 100%;
+  resize:none;
 }
 
 button,
@@ -318,6 +322,7 @@ table {
   .table th {
     background-color: #fff !important;
   }
+  
   .btn > .caret,
   .dropup > .btn > .caret {
     border-top-color: #000 !important;
