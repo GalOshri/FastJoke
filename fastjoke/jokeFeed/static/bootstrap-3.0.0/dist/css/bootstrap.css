@@ -800,7 +800,7 @@ pre code {
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
-  padding-top: 10%;
+  padding-top: 7%;
 }
 
 .container:before,
@@ -4990,6 +4990,10 @@ a.list-group-item.active > .badge,
 
 .container .jumbotron {
   border-radius: 6px;
+}
+
+.container .jumbotron .container {
+	padding-top: 20px
 }
 
 @media screen and (min-width: 768px) {
