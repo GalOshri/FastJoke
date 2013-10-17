@@ -6,11 +6,13 @@
 <div class="container">
 	<div class="jumbotron">
 		<div class="container">
-			<h1>Your favorite jokes</h1>
+			<h1>Your Favorite Jokes</h1>
 			</br>
 			{% if profile.favorites.all %}
-				<ul class="list-unstyled">
+				<table class="table">
+				<tbody>
 				{% for fav_joke in profile.favorites.all %}
+<<<<<<< HEAD
 					<li class="padded-list">
 						<a href="/{{ fav_joke.id }}/fav/?next=/user/fav">					
 							<button class="btn btn-danger btn-sm"> 
@@ -20,8 +22,24 @@
 						<a style="color:#ffffff;" href="/{{fav_joke.id}}">{{ fav_joke.text }}</a>
 
 					</li>
+=======
+					<tr>
+						<td>
+							<a href="/{{ fav_joke.id }}/fav/?next=/user/fav">					
+								<button class="btn btn-danger btn-sm"> 
+									<span class="glyphicon glyphicon-minus-sign"></span>
+								</button>
+							</a>
+						</td>
+						<td>
+							<a href="/{{fav_joke.id}}">{{ fav_joke.text }}</a>
+						</td>
+					</tr>
+				
+>>>>>>> 34dfe97749c725235df402f0c144953f4cd2a07c
 				{% endfor %}
-				</ul>
+				</tbody>
+				</table>
 			{% else %}
 				<p>You haven't favorited any jokes yet.</p>
 			{% endif %}
