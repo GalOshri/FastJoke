@@ -29,6 +29,7 @@ def index(request):
 	else:
 
 		top_five = []
+		
 		for i in range(3, 8):
 			top_five.append(getRankJoke(i))
 		context = { 'top_five' : top_five}
