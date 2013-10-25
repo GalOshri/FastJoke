@@ -14,6 +14,7 @@
 			{% endif %}
 			<br/>
 			
+			{% autoescape on %}
 			<form class="form-horizontal" method="post" action="{% url 'django.contrib.auth.views.login' %}">
 				{% csrf_token %}
 					{% if error %}
@@ -44,6 +45,8 @@
 					<label class='control-label'><input type="submit" value="login" class="btn btn-primary"/></label>
 					<input type="hidden" name="next" value="{{ next }}" />
 			</form>
+			
+			{% endautoescape %}
 			<br/>
 			
 			

@@ -8,6 +8,7 @@
 		<div class="container">
 			<h1>Submit a Joke</h1><br/><br/>
 			
+			{% autoescape on %}
 			<form class="form-horizontal" role="form" action="{% url 'jokeFeed:submit_submit' %}" method="post">
 				{% csrf_token %}
 				<div class="form-group">
@@ -19,6 +20,8 @@
 					<label class='control-label'><button type="submit" class="btn btn-primary" name="submit_joke_form">Submit</button></label>
 				</div>
 			</form>
+			{% endautoescape %}
+			
 		</div>
 	</div>
 </div>
