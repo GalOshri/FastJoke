@@ -24,6 +24,10 @@ def index(request):
 		request.session['current_joke_num'] = 1
 		curUser=UserProfile.objects.get(user=User.objects.get(id=request.user.id))
 		next_joke = getNextJoke(request, curUser)
+		if next_joke == 0:
+			context = {}
+			return render(request, 'jokeFeed/no_life.html', context)
+			
 		return HttpResponseRedirect(reverse('jokeFeed:detail', args=(next_joke.id,)))
 		
 	else:
